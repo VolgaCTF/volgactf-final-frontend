@@ -1,0 +1,46 @@
+{
+  "name": "test-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
+    "alt": "^0.18.6",
+    "immutable": "^4.0.0-rc.12",
+    "markdown-it": "^9.1.0",
+    "markdown-it-emoji": "^1.4.0",
+    "markdown-it-link-attributes": "^2.1.0",
+    "moment": "^2.24.0",
+    "numeral": "^2.0.6",
+    "react": "^16.9.0",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^16.9.0",
+    "react-hot-loader": "^4.12.11",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "twemoji": "^12.1.2",
+    "typeface-roboto": "0.0.75"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development",
+    "devbuild": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC"
+}
