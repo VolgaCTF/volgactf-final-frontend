@@ -1,7 +1,5 @@
 const description = `
 **TODO:** Write description
-
-:bus: :airplane: :ru: Samara
 `
 
 export default {
