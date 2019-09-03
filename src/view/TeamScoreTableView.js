@@ -14,7 +14,7 @@ export default class TeamScoreTableView extends Component {
     })
 
     return (
-      <Table size="small">
+      <Table size='small'>
         <TableHead>
           <TeamScoreTableHeaderView order={this.props.table.order} headers={this.props.table.headers} />
         </TableHead>

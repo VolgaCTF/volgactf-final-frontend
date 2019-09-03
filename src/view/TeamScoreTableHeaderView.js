@@ -15,8 +15,8 @@ class TeamScoreTableHeaderView extends Component {
     const cells = this.props.order.map((column, ndx) => {
       const header = this.props.headers[column]
       return (
-        <TableCell key={ndx} align="left">
-          <Typography variant="body2" component="span" color="textPrimary" className={this.props.classes.root}>
+        <TableCell key={ndx} align='left'>
+          <Typography variant='body2' component='span' color='textPrimary' className={this.props.classes.root}>
             {header.title}
           </Typography>
         </TableCell>

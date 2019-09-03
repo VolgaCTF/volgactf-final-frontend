@@ -1,4 +1,4 @@
-import React, { Component }from 'react'
+import React, { Component } from 'react'
 
 import { TableRow, TableCell, Typography } from '@material-ui/core'
 
@@ -13,7 +13,7 @@ export default class TeamScoreTableRowView extends Component {
       }
       return (
         <TableCell key={ndx}>
-          <Typography variant="body2" component="span">
+          <Typography variant='body2' component='span'>
             {value}
           </Typography>
         </TableCell>

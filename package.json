@@ -1,7 +1,9 @@
 {
-  "name": "test-react",
-  "version": "1.0.0",
-  "description": "",
+  "name": "volgactf-final-frontend",
+  "version": "2.0.0",
+  "author": "Alexander Pyatkin <aspyatkin@gmail.com>",
+  "license": "MIT",
+  "description": "VolgaCTF Final Frontend SPA",
   "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^4.3.2",
@@ -27,9 +29,12 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "snazzy": "^8.0.0",
+    "standard": "^14.1.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.6",
@@ -39,8 +44,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
     "devbuild": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "standard --verbose \"src/**/*.js\" | snazzy"
   },
-  "author": "",
-  "license": "ISC"
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "fetch"
+    ]
+  }
 }

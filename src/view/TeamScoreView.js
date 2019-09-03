@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 })
 
-class TeamScoreView extends Component  {
+class TeamScoreView extends Component {
   constructor (props) {
     super(props)
     this.teamId = null
@@ -137,7 +137,7 @@ class TeamScoreView extends Component  {
   render () {
     return (
       <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Team stats`}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
+        <Paper elevation={0} square className={this.props.classes.root}>
           {
             (() => {
               if (this.isLoading()) {
@@ -154,8 +154,8 @@ class TeamScoreView extends Component  {
 
               return (
                 <div>
-                  <Typography variant="h4" component="h1" gutterBottom={true}>{team.name} &ndash; team stats</Typography>
-                  <TeamScoreTableView identity={this.props.identity} table={this.calculateTable()}/>
+                  <Typography variant='h4' component='h1' gutterBottom>{team.name} &ndash; team stats</Typography>
+                  <TeamScoreTableView identity={this.props.identity} table={this.calculateTable()} />
                 </div>
               )
             })()

@@ -8,7 +8,7 @@ export default class TeamScoreTableScoreCellView extends Component {
   render () {
     return (
       <TableCell>
-        <Typography variant="body2" component="span">
+        <Typography variant='body2' component='span'>
           {numeral(this.props.value).format('0.00')}
         </Typography>
       </TableCell>
