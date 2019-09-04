@@ -5,21 +5,21 @@ class ScoreboardActions {
   static fetchPromise () {
     return new Promise((resolve, reject) => {
       fetch('/api/scoreboard')
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        resolve(new ScoreboardModel(data))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
+        })
+        .then((data) => {
+          resolve(new ScoreboardModel(data))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -32,13 +32,13 @@ class ScoreboardActions {
       dispatch()
 
       ScoreboardActions
-      .fetchPromise()
-      .then((scoreboard) => {
-        this.update(scoreboard)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((scoreboard) => {
+          this.update(scoreboard)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

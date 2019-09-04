@@ -20,7 +20,7 @@ class TeamServicePushStateStore {
     })
 
     eventManager.on('team/service/push-state', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       TeamServicePushStateActions.updateSingle(new TeamServicePushStateModel(data))
     })
   }
@@ -34,7 +34,7 @@ class TeamServicePushStateStore {
   }
 
   handleUpdateSingle (teamServicePushState) {
-    let ndx = this.state.collection.findIndex(x => (x.teamId === teamServicePushState.teamId && x.serviceId === teamServicePushState.serviceId))
+    const ndx = this.state.collection.findIndex(x => (x.teamId === teamServicePushState.teamId && x.serviceId === teamServicePushState.serviceId))
     this.setState({
       loading: false,
       err: null,

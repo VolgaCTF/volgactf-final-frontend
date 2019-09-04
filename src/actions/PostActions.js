@@ -7,24 +7,24 @@ class PostActions {
   static fetchPromise () {
     return new Promise((resolve, reject) => {
       fetch('/api/posts')
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        let posts = data.map((props) => {
-          return new PostModel(props)
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
         })
-        resolve(new List(posts))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((data) => {
+          const posts = data.map((props) => {
+            return new PostModel(props)
+          })
+          resolve(new List(posts))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -40,16 +40,16 @@ class PostActions {
           description: postDescription
         })
       })
-      .then((response) => {
-        if (response.status === 201) {
-          resolve()
-        } else {
-          reject('Unexpected status code')
-        }
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve()
+          } else {
+            reject(new Error('Unexpected status code'))
+          }
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -65,16 +65,16 @@ class PostActions {
           description: postDescription
         })
       })
-      .then((response) => {
-        if (response.status === 204) {
-          resolve()
-        } else {
-          reject('Unexpected status code')
-        }
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((response) => {
+          if (response.status === 204) {
+            resolve()
+          } else {
+            reject(new Error('Unexpected status code'))
+          }
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -83,16 +83,16 @@ class PostActions {
       fetch(`/api/post/${postId}`, {
         method: 'delete'
       })
-      .then((response) => {
-        if (response.status === 204) {
-          resolve()
-        } else {
-          reject('Unexpected status code')
-        }
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((response) => {
+          if (response.status === 204) {
+            resolve()
+          } else {
+            reject(new Error('Unexpected status code'))
+          }
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -117,13 +117,13 @@ class PostActions {
       dispatch()
 
       PostActions
-      .fetchPromise()
-      .then((posts) => {
-        this.update(posts)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((posts) => {
+          this.update(posts)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 
@@ -132,12 +132,12 @@ class PostActions {
       dispatch()
 
       PostActions
-      .addPromise(postTitle, postDescription)
-      .then(() => {
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .addPromise(postTitle, postDescription)
+        .then(() => {
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 
@@ -146,12 +146,12 @@ class PostActions {
       dispatch()
 
       PostActions
-      .editPromise(postId, postTitle, postDescription)
-      .then(() => {
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .editPromise(postId, postTitle, postDescription)
+        .then(() => {
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 
@@ -160,12 +160,12 @@ class PostActions {
       dispatch()
 
       PostActions
-      .removePromise(postId)
-      .then(() => {
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .removePromise(postId)
+        .then(() => {
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

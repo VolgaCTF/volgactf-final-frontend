@@ -18,7 +18,7 @@ class CompetitionRoundStore {
     })
 
     eventManager.on('competition/round', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       CompetitionRoundActions.update(new CompetitionRoundModel(data))
     })
   }

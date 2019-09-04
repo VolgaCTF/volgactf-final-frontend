@@ -41,9 +41,6 @@ const styles = theme => ({
   teal900: {
     color: teal['900']
   },
-  grey600: {
-    color: grey['600']
-  },
   green700: {
     color: green['700']
   },
@@ -110,8 +107,8 @@ class LogView extends Component {
   }
 
   renderTeamServicePushStateUpdate (params) {
-    let team = this.props.teams.find(x => x.id === params.team_id)
-    let service = this.props.services.find(x => x.id === params.service_id)
+    const team = this.props.teams.find(x => x.id === params.team_id)
+    const service = this.props.services.find(x => x.id === params.service_id)
     if (team != null && service != null) {
       let statusClass = this.props.classes.grey600
       let statusText = null
@@ -193,15 +190,15 @@ class LogView extends Component {
     return <span>Service <code>{params.service_name}</code> is disabled</span>
   }
 
-  renderServiceModifyEnableIn(params) {
+  renderServiceModifyEnableIn (params) {
     return <span>Service <code>{params.service_name}</code> is set to be enabled in round {params.service_enable_in}</span>
   }
 
-  renderServiceModifyDisableIn(params) {
+  renderServiceModifyDisableIn (params) {
     return <span>Service <code>{params.service_name}</code> is set to be disabled in round {params.service_disable_in}</span>
   }
 
-  renderServiceModifyAwardDefenceAfter(params) {
+  renderServiceModifyAwardDefenceAfter (params) {
     return <span>Service <code>{params.service_name}</code> &ndash; defence points are to be awarded after round {params.service_award_defence_after} ends</span>
   }
 

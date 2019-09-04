@@ -14,7 +14,7 @@ export default class ScoreTableView extends Component {
     })
 
     return (
-      <Table size="small">
+      <Table size='small'>
         <TableHead>
           <ScoreTableHeaderView order={this.props.table.order} headers={this.props.table.headers} muted={this.props.table.muted} />
         </TableHead>

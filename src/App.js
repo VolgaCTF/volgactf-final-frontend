@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { withRouter } from 'react-router'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import { withStyles } from '@material-ui/styles'
 import { AppBar, Toolbar, Typography, Link, Tabs, Tab, Container } from '@material-ui/core'
@@ -52,12 +52,12 @@ const styles = theme => ({
 })
 
 class App extends Component {
- constructor (props) {
+  constructor (props) {
     super(props)
-    this.onTabActivate = this.onTabActivate.bind(this)
+    this.handleTabActivate = this.handleTabActivate.bind(this)
   }
 
-  onTabActivate (event, newValue) {
+  handleTabActivate (event, newValue) {
     this.props.history.push(newValue)
   }
 
@@ -73,10 +73,10 @@ class App extends Component {
     const { classes } = this.props
 
     let selectedTab = false
-    let tabs = [
-      <Tab key="home" label="Home" value="/" />,
-      <Tab key="scoreboard" label="Scoreboard" value="/scoreboard" />,
-      <Tab key="news" label="News" value="/news" />
+    const tabs = [
+      <Tab key='home' label='Home' value='/' />,
+      <Tab key='scoreboard' label='Scoreboard' value='/scoreboard' />,
+      <Tab key='news' label='News' value='/news' />
     ]
 
     if (['/', '/scoreboard', '/news', '/logs', '/team/stats'].indexOf(this.props.location.pathname) !== -1) {
@@ -84,17 +84,17 @@ class App extends Component {
     }
 
     if (this.props.identity.isTeam()) {
-      tabs.push(<Tab key="team/stats" label="Stats" value="/team/stats" />)
+      tabs.push(<Tab key='team/stats' label='Stats' value='/team/stats' />)
     }
 
     if (this.props.identity.isInternal()) {
-      tabs.push(<Tab key="logs" label="Logs" value="/logs" />)
+      tabs.push(<Tab key='logs' label='Logs' value='/logs' />)
     }
 
     return (
       <div className={classes.root}>
         <Container className={classes.main} maxWidth={false}>
-          <AppBar position="static">
+          <AppBar position='static'>
             <Toolbar>
               {
                 (() => {
@@ -102,29 +102,28 @@ class App extends Component {
                     return (
                       <img className={classes.headerLogo} src={customLogo.header} alt={this.props.customContent.competitionTitle} />
                     )
-                  } else {
-                    return ''
                   }
+                  return null
                 })()
               }
-              <Typography variant="h5" color="inherit" className={classes.title}>
+              <Typography variant='h5' color='inherit' className={classes.title}>
                 {this.props.customContent.competitionTitle}
               </Typography>
-              <Tabs value={selectedTab} onChange={this.onTabActivate}>
+              <Tabs value={selectedTab} onChange={this.handleTabActivate}>
                 {tabs}
               </Tabs>
             </Toolbar>
           </AppBar>
           <CompetitionInfoBarView />
           <Switch>
-            <Route path="/" exact render={props => <IndexView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
-            <Route path="/scoreboard" render={props => <ScoreboardView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
-            <Route path="/news" render={props => <NewsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+            <Route path='/' exact render={props => <IndexView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+            <Route path='/scoreboard' render={props => <ScoreboardView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+            <Route path='/news' render={props => <NewsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
             {
               (() => {
                 if (this.props.identity.isInternal()) {
                   return (
-                    <Route path="/team/:teamIdStr/stats" render={props => <TeamScoreView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+                    <Route path='/team/:teamIdStr/stats' render={props => <TeamScoreView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
                   )
                 }
                 return null
@@ -134,7 +133,7 @@ class App extends Component {
               (() => {
                 if (this.props.identity.isInternal()) {
                   return (
-                    <Route path="/logs" render={props => <LogsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+                    <Route path='/logs' render={props => <LogsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
                   )
                 }
                 return null
@@ -144,7 +143,7 @@ class App extends Component {
               (() => {
                 if (this.props.identity.isTeam()) {
                   return (
-                    <Route path="/team/stats" render={props => <TeamScoreView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+                    <Route path='/team/stats' render={props => <TeamScoreView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
                   )
                 }
                 return null
@@ -155,11 +154,11 @@ class App extends Component {
         </Container>
         <footer className={classes.footer}>
           <Container maxWidth={false}>
-            <Typography variant="body2">
-              &copy; {(new Date()).getFullYear()} <Link href="https://volgactf.ru" target="_blank" rel="noopener" className={classes.link}>VolgaCTF</Link>. Devised in Samara, Russia.
-              </Typography>
-            <Typography variant="body2">
-              Find this project on <Link href="https://github.com/VolgaCTF/volgactf-final" target="_blank" rel="noopener" className={classes.link}>GitHub</Link>
+            <Typography variant='body2'>
+              &copy; {(new Date()).getFullYear()} <Link href='https://volgactf.ru' target='_blank' rel='noopener' className={classes.link}>VolgaCTF</Link>. Devised in Samara, Russia.
+            </Typography>
+            <Typography variant='body2'>
+              Find this project on <Link href='https://github.com/VolgaCTF/volgactf-final' target='_blank' rel='noopener' className={classes.link}>GitHub</Link>
             </Typography>
           </Container>
         </footer>

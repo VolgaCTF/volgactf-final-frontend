@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/styles'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField, Typography, Card, CardActions, CardContent, Grid } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Card, CardContent, Grid } from '@material-ui/core'
 
 import PostActions from '../actions/PostActions.js'
 import MarkdownRenderer from '../util/MarkdownRenderer.js'
@@ -28,11 +28,11 @@ class PostAddDialogView extends Component {
 
     this.md = new MarkdownRenderer()
 
-    this.onOK = this.onOK.bind(this)
-    this.onCancel = this.onCancel.bind(this)
+    this.handleOK = this.handleOK.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
 
-    this.onChangeTitle = this.onChangeTitle.bind(this)
-    this.onChangeDescription = this.onChangeDescription.bind(this)
+    this.handleChangeTitle = this.handleChangeTitle.bind(this)
+    this.handleChangeDescription = this.handleChangeDescription.bind(this)
 
     this.state = {
       title: '',
@@ -41,22 +41,22 @@ class PostAddDialogView extends Component {
     }
   }
 
-  onCancel () {
+  handleCancel () {
     this.dismiss()
   }
 
-  onOK () {
+  handleOK () {
     PostActions.add(this.state.title, this.state.description)
     this.dismiss()
   }
 
-  onChangeTitle (event) {
+  handleChangeTitle (event) {
     this.setState({
       title: event.target.value
     })
   }
 
-  onChangeDescription (event) {
+  handleChangeDescription (event) {
     this.setState({
       description: event.target.value
     })
@@ -78,23 +78,22 @@ class PostAddDialogView extends Component {
 
   render () {
     return (
-      <Dialog open={this.state.open} fullWidth={true} maxWidth="md">
+      <Dialog open={this.state.open} fullWidth maxWidth='md'>
         <DialogTitle>Add post</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <TextField variant="outlined" margin="normal" label="Title" fullWidth autoFocus value={this.state.title} onChange={this.onChangeTitle} />
-              <TextField variant="outlined" margin="normal" label="Description" fullWidth multiline rows={4} rowsMax={8} value={this.state.description} onChange={this.onChangeDescription} />
+              <TextField variant='outlined' margin='normal' label='Title' fullWidth autoFocus value={this.state.title} onChange={this.handleChangeTitle} />
+              <TextField variant='outlined' margin='normal' label='Description' fullWidth multiline rows={4} rowsMax={8} value={this.state.description} onChange={this.handleChangeDescription} />
             </Grid>
             <Grid item xs={6}>
               <div className={this.props.classes.previewWrapper}>
                 <Card className={this.props.classes.preview}>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant='h5' component='h2'>
                       {this.state.title || '<todo>: write a title'}
                     </Typography>
-                    <Typography variant="body1" dangerouslySetInnerHTML={{__html: this.md.render(this.state.description || '<todo>: write a description')}}>
-                    </Typography>
+                    <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.state.description || '<todo>: write a description') }} />
                   </CardContent>
                 </Card>
               </div>
@@ -102,8 +101,8 @@ class PostAddDialogView extends Component {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button size="small" onClick={this.onCancel}>Cancel</Button>
-          <Button size="small" color="primary" onClick={this.onOK}>Save</Button>
+          <Button size='small' onClick={this.handleCancel}>Cancel</Button>
+          <Button size='small' color='primary' onClick={this.handleOK}>Save</Button>
         </DialogActions>
       </Dialog>
     )

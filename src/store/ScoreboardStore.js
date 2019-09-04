@@ -18,7 +18,7 @@ class ScoreboardStore {
     })
 
     eventManager.on('scoreboard', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       ScoreboardActions.update(new ScoreboardModel(data))
     })
   }

@@ -17,7 +17,7 @@ const styles = theme => ({
 class CompetitionInfoBarView extends Component {
   render () {
     return (
-      <Paper elevation={0} square={true} className={this.props.classes.root}>
+      <Paper elevation={0} square className={this.props.classes.root}>
         <CompetitionRoundView />
         <CompetitionStageView />
         <StreamStatusView />

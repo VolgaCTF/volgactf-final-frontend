@@ -8,7 +8,7 @@ export default class ScoreTableScoreCellView extends Component {
   render () {
     return (
       <TableCell>
-        <Typography variant="body2" component="span" color={this.props.muted ? 'textSecondary' : 'initial'}>
+        <Typography variant='body2' component='span' color={this.props.muted ? 'textSecondary' : 'initial'}>
           {numeral(this.props.value).format('0.00')}
         </Typography>
       </TableCell>

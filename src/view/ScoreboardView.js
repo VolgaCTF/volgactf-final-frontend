@@ -167,7 +167,7 @@ class ScoreboardView extends Component {
         teamTrend = position.trend
       }
 
-      let row = {
+      const row = {
         id: team.id,
         team: team.name,
         totalPoints: position.totalPoints,
@@ -212,7 +212,7 @@ class ScoreboardView extends Component {
     }
 
     const rows = rowData.map(function (row, ndx) {
-      row['rank'] = ndx + 1
+      row.rank = ndx + 1
       return row
     })
 
@@ -279,8 +279,8 @@ class ScoreboardView extends Component {
   render () {
     return (
       <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Scoreboard`}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
-          <Typography variant="h4" component="h1" gutterBottom={true}>Scoreboard</Typography>
+        <Paper elevation={0} square className={this.props.classes.root}>
+          <Typography variant='h4' component='h1' gutterBottom>Scoreboard</Typography>
           {
             (() => {
               if (this.isLoading()) {
@@ -302,7 +302,7 @@ class ScoreboardView extends Component {
               if (team.logoHash) {
                 return null
               } else {
-                return <TeamLogoAlertView/>
+                return <TeamLogoAlertView />
               }
             })()
           }

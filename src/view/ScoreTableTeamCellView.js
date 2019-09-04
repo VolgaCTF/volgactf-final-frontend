@@ -47,21 +47,20 @@ const styles = theme => ({
 class ScoreTableTeamCellView extends Component {
   constructor (props) {
     super(props)
-    this.onChangeTeamLogoDialog = this.onChangeTeamLogoDialog.bind(this)
-    this.onOpenTeamStats = this.onOpenTeamStats.bind(this)
+    this.handleChangeTeamLogoDialog = this.handleChangeTeamLogoDialog.bind(this)
+    this.handleOpenTeamStats = this.handleOpenTeamStats.bind(this)
   }
 
-  onChangeTeamLogoDialog () {
+  handleChangeTeamLogoDialog () {
     this.refs.changeTeamLogoDialog.start()
   }
 
-  onOpenTeamStats (e) {
+  handleOpenTeamStats (e) {
     this.props.history.push(`/team/${this.props.teamId}/stats`)
   }
 
   render () {
     const teamClasses = [this.props.classes.root]
-    let className = 'volgactf-final-team'
     const exactTeam = this.props.identity.isTeam() && this.props.identity.getId() === this.props.teamId
 
     if (exactTeam) {
@@ -78,27 +77,27 @@ class ScoreTableTeamCellView extends Component {
         {
           (() => {
             if (exactTeam && this.props.teamLogoHash) {
-              return <UploadTeamLogoDialogView ref='changeTeamLogoDialog'/>
+              return <UploadTeamLogoDialogView ref='changeTeamLogoDialog' />
             }
             return null
           })()
         }
         {
           (() => {
-            if (exactTeam  && this.props.teamLogoHash) {
-              return <img className={`${this.props.classes.teamLogo} ${this.props.classes.teamLogoActive}`} src={logoSrc} onClick={this.onChangeTeamLogoDialog} />
+            if (exactTeam && this.props.teamLogoHash) {
+              return <img className={`${this.props.classes.teamLogo} ${this.props.classes.teamLogoActive}`} src={logoSrc} onClick={this.handleChangeTeamLogoDialog} />
             } else {
-              return <img className={this.props.classes.teamLogo} src={logoSrc}/>
+              return <img className={this.props.classes.teamLogo} src={logoSrc} />
             }
           })()
         }
-        <Typography variant="body2" component="span" className={teamClasses.join(' ')}>{this.props.value}</Typography>
+        <Typography variant='body2' component='span' className={teamClasses.join(' ')}>{this.props.value}</Typography>
         {
           (() => {
             if (this.props.identity.isInternal()) {
               return (
-                <span className={this.props.classes.teamStatsWrapper} title="Show team stats">
-                  <Poll className={this.props.classes.teamStats} onClick={this.onOpenTeamStats}/>
+                <span className={this.props.classes.teamStatsWrapper} title='Show team stats'>
+                  <Poll className={this.props.classes.teamStats} onClick={this.handleOpenTeamStats} />
                 </span>
               )
             }
@@ -109,8 +108,8 @@ class ScoreTableTeamCellView extends Component {
           (() => {
             if (this.props.guest) {
               return (
-                <span className={this.props.classes.guestWrapper} title="Guest team">
-                  <Language className={this.props.classes.guest}/>
+                <span className={this.props.classes.guestWrapper} title='Guest team'>
+                  <Language className={this.props.classes.guest} />
                 </span>
               )
             }

@@ -7,24 +7,24 @@ class TeamScoreActions {
     return new Promise((resolve, reject) => {
       const exactTeam = identity.isTeam() && (identity.getId() === teamId)
       fetch(exactTeam ? '/api/team/stats' : `/api/team/${teamId}/stats`)
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        const teamScores = data.map((props) => {
-          return new TeamScoreModel(props)
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
         })
-        resolve(new List(teamScores))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((data) => {
+          const teamScores = data.map((props) => {
+            return new TeamScoreModel(props)
+          })
+          resolve(new List(teamScores))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -41,13 +41,13 @@ class TeamScoreActions {
       dispatch()
 
       TeamScoreActions
-      .fetchPromise(identity, teamId)
-      .then((teamScores) => {
-        this.update(teamScores)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise(identity, teamId)
+        .then((teamScores) => {
+          this.update(teamScores)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

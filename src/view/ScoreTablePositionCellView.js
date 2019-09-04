@@ -56,16 +56,16 @@ class ScoreTablePositionCellView extends Component {
             switch (this.props.value) {
               case 1:
                 classes.push(this.props.classes.rankFirst)
-                return <LooksOne className={classes.join(' ')}/>
+                return <LooksOne className={classes.join(' ')} />
               case 2:
                 classes.push(this.props.classes.rankSecond)
-                return <LooksTwo className={classes.join(' ')}/>
+                return <LooksTwo className={classes.join(' ')} />
               case 3:
                 classes.push(this.props.classes.rankThird)
-                return <Looks3 className={classes.join(' ')}/>
+                return <Looks3 className={classes.join(' ')} />
               default:
                 classes.push(this.props.classes.root)
-                return <Typography variant="body2" component="span" className={classes.join(' ')}>{this.props.value}</Typography>
+                return <Typography variant='body2' component='span' className={classes.join(' ')}>{this.props.value}</Typography>
             }
           })()
         }
@@ -84,15 +84,15 @@ class ScoreTablePositionCellView extends Component {
             if (this.props.trend < 0) {
               trendingClasses.push(this.props.classes.trendingDown)
               trendingCaption = 'Position is on the decrease'
-              trendingIcon = <TrendingDown/>
+              trendingIcon = <TrendingDown />
             } else if (this.props.trend > 0) {
               trendingClasses.push(this.props.classes.trendingUp)
               trendingCaption = 'Position is on the increase'
-              trendingIcon = <TrendingUp/>
+              trendingIcon = <TrendingUp />
             } else {
               trendingClasses.push(this.props.classes.trendingFlat)
               trendingCaption = 'Position is unlikely to change'
-              trendingIcon = <TrendingFlat/>
+              trendingIcon = <TrendingFlat />
             }
             return <span className={trendingClasses.join(' ')} title={trendingCaption}>{trendingIcon}</span>
           })()

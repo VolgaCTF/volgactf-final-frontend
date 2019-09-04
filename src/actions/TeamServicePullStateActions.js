@@ -6,24 +6,24 @@ class TeamServicePullStateActions {
   static fetchPromise () {
     return new Promise((resolve, reject) => {
       fetch('/api/team/service/pull-states')
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        let teamServicePullStates = data.map((props) => {
-          return new TeamServicePullStateModel(props)
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
         })
-        resolve(new List(teamServicePullStates))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((data) => {
+          const teamServicePullStates = data.map((props) => {
+            return new TeamServicePullStateModel(props)
+          })
+          resolve(new List(teamServicePullStates))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -40,13 +40,13 @@ class TeamServicePullStateActions {
       dispatch()
 
       TeamServicePullStateActions
-      .fetchPromise()
-      .then((teamServicePullStates) => {
-        this.update(teamServicePullStates)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((teamServicePullStates) => {
+          this.update(teamServicePullStates)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

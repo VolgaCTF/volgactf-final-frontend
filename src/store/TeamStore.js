@@ -23,7 +23,6 @@ class TeamStore {
       const data = JSON.parse(e.data)
       TeamActions.onModify(new TeamModel(data))
     })
-
   }
 
   handleUpdate (teams) {

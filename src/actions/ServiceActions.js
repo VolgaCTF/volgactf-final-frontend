@@ -6,24 +6,24 @@ class ServiceActions {
   static fetchPromise () {
     return new Promise((resolve, reject) => {
       fetch('/api/services')
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        let services = data.map((props) => {
-          return new ServiceModel(props)
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
         })
-        resolve(new List(services))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((data) => {
+          const services = data.map((props) => {
+            return new ServiceModel(props)
+          })
+          resolve(new List(services))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -48,13 +48,13 @@ class ServiceActions {
       dispatch()
 
       ServiceActions
-      .fetchPromise()
-      .then((services) => {
-        this.update(services)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((services) => {
+          this.update(services)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

@@ -18,7 +18,7 @@ class CompetitionStageStore {
     })
 
     eventManager.on('competition/stage', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       CompetitionStageActions.update(new CompetitionStageModel(data))
     })
   }

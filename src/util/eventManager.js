@@ -18,7 +18,7 @@ class EventManager {
   connect () {
     if (this.enabled) {
       this.eventSource = new window.EventSource('/stream/')
-      for (let entry of this.queue) {
+      for (const entry of this.queue) {
         this.eventSource.addEventListener(entry.name, entry.handler)
       }
     }

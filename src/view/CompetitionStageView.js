@@ -72,7 +72,7 @@ class CompetitionStageView extends Component {
 
   render () {
     if (this.state.loading) {
-      return <span></span>
+      return null
     }
 
     if (this.state.err) {
@@ -117,7 +117,7 @@ class CompetitionStageView extends Component {
         break
     }
 
-    return <Typography variant="body2" component="span" className={classes.join(' ')}>{text}</Typography>
+    return <Typography variant='body2' component='span' className={classes.join(' ')}>{text}</Typography>
   }
 }
 

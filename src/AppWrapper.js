@@ -1,5 +1,5 @@
-import React, { Component, Fragment} from 'react'
-import {hot} from 'react-hot-loader'
+import React, { Component } from 'react'
+import { hot } from 'react-hot-loader'
 import DocumentTitle from 'react-document-title'
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -15,14 +15,14 @@ class AppWrapper extends Component {
   render () {
     return (
       <DocumentTitle title={customContent.competitionTitle}>
-        <Fragment>
+        <>
           <CssBaseline />
           <Router>
             <ThemeProvider theme={customTheme}>
               <App identity={this.props.identity} customContent={customContent} />
             </ThemeProvider>
           </Router>
-        </Fragment>
+        </>
       </DocumentTitle>
     )
   }

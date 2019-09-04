@@ -25,7 +25,7 @@ class NewsView extends Component {
     super(props)
     this.state = PostStore.getState()
     this.onUpdate = this.onUpdate.bind(this)
-    this.onAddDialog = this.onAddDialog.bind(this)
+    this.handleAddDialog = this.handleAddDialog.bind(this)
   }
 
   componentDidMount () {
@@ -41,21 +41,21 @@ class NewsView extends Component {
     this.setState(state)
   }
 
-  onAddDialog () {
+  handleAddDialog () {
     this.refs.addDialog.start()
   }
 
   render () {
     return (
       <DocumentTitle title={`${this.props.customContent.competitionTitle} :: News}`}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
-          <Typography variant="h4" component="h1">News</Typography>
+        <Paper elevation={0} square className={this.props.classes.root}>
+          <Typography variant='h4' component='h1'>News</Typography>
           {
             (() => {
               if (this.props.identity.isInternal()) {
                 return (
                   <div className={this.props.classes.topGutter}>
-                    <Button variant="contained" color="primary" onClick={this.onAddDialog}>Add</Button>
+                    <Button variant='contained' color='primary' onClick={this.handleAddDialog}>Add</Button>
                     <PostAddDialogView ref='addDialog' />
                   </div>
                 )
@@ -67,15 +67,15 @@ class NewsView extends Component {
           {
             (() => {
               if (this.state.loading) {
-                return <Typography variant="body1" className={this.props.classes.topGutter}>Loading</Typography>
+                return <Typography variant='body1' className={this.props.classes.topGutter}>Loading</Typography>
               }
 
               if (this.state.err) {
-                return <Typography variant="body1" className={this.props.classes.topGutter}>Failed to fetch posts</Typography>
+                return <Typography variant='body1' className={this.props.classes.topGutter}>Failed to fetch posts</Typography>
               }
 
               if (this.state.collection.isEmpty()) {
-                return <Typography variant="body1" className={this.props.classes.topGutter}>No posts yet</Typography>
+                return <Typography variant='body1' className={this.props.classes.topGutter}>No posts yet</Typography>
               } else {
                 const sortedPosts = this.state.collection.sortBy(x => x.updatedAt.getTime()).reverse()
                 return <PostListView posts={sortedPosts} identity={this.props.identity} />

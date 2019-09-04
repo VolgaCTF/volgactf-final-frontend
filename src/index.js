@@ -14,11 +14,11 @@ function ready (callback) {
 
 ready(function () {
   dataManager
-  .getIdentity()
-  .then(function (identity) {
-    ReactDOM.render(<AppWrapper identity={identity} />, document.getElementById('root'))
-  })
-  .catch(function (err) {
-    console.log('Error', err)
-  })
+    .getIdentity()
+    .then(function (identity) {
+      ReactDOM.render(<AppWrapper identity={identity} />, document.getElementById('root'))
+    })
+    .catch(function (err) {
+      console.log('Error', err)
+    })
 })

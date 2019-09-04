@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DocumentTitle from 'react-document-title'
 
@@ -19,30 +19,30 @@ const styles = theme => ({
 class NotFoundView extends Component {
   constructor (props) {
     super(props)
-    this.navigate = this.navigate.bind(this)
+    this.handleNavigate = this.handleNavigate.bind(this)
   }
 
-  navigate (e) {
+  handleNavigate (e) {
     e.preventDefault()
     this.props.history.push(e.target.getAttribute('href'))
   }
 
   render () {
-    let links = [
-      <li key={0}><Link href='/' onClick={this.navigate}>Home</Link></li>,
-      <li key={1}><Link href='/scoreboard' onClick={this.navigate}>Scoreboard</Link></li>,
-      <li key={2}><Link href='/news' onClick={this.navigate}>News</Link></li>
+    const links = [
+      <li key={0}><Link href='/' onClick={this.handleNavigate}>Home</Link></li>,
+      <li key={1}><Link href='/scoreboard' onClick={this.handleNavigate}>Scoreboard</Link></li>,
+      <li key={2}><Link href='/news' onClick={this.handleNavigate}>News</Link></li>
     ]
 
     if (this.props.identity.isInternal()) {
-      links.push(<li key={3}><Link href='/logs' onClick={this.navigate}>Logs</Link></li>)
+      links.push(<li key={3}><Link href='/logs' onClick={this.handleNavigate}>Logs</Link></li>)
     }
 
     return (
       <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Not Found`}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
-          <Typography variant="h4" component="h1">Not Found</Typography>
-          <Typography variant="body1" component="div">
+        <Paper elevation={0} square className={this.props.classes.root}>
+          <Typography variant='h4' component='h1'>Not Found</Typography>
+          <Typography variant='body1' component='div'>
             <p>This is not the page you are looking for...</p>
             <p>Try these:</p>
             <ul className={this.props.classes.list}>

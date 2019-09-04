@@ -29,30 +29,22 @@ const styles = theme => ({
 class TeamLogoAlertView extends Component {
   constructor (props) {
     super(props)
-
-    this.onUploadTeamLogoDialog = this.onUploadTeamLogoDialog.bind(this)
+    this.handleUploadTeamLogoDialog = this.handleUploadTeamLogoDialog.bind(this)
   }
 
-  onUploadTeamLogoDialog () {
+  handleUploadTeamLogoDialog () {
     this.refs.uploadTeamLogoDialog.start()
   }
 
   render () {
-    const buttonStyle = {
-      fontWeight: 'bold',
-      fontSize: '100%',
-      textTransform: 'none',
-      color: red['600'],
-      textDecoration: 'underline'
-    }
     return (
-      <Paper elevation={0} square={true} className={this.props.classes.root}>
-        <Warning className={this.props.classes.warningIcon}/>
-        <Typography variant="body1" component="span">
+      <Paper elevation={0} square className={this.props.classes.root}>
+        <Warning className={this.props.classes.warningIcon} />
+        <Typography variant='body1' component='span'>
           Your team does not have a logo.&nbsp;
         </Typography>
-        <Link component="button" variant="body1" color="inherit" underline="always" onClick={this.onUploadTeamLogoDialog}>Upload</Link>
-        <UploadTeamLogoDialogView ref='uploadTeamLogoDialog'/>
+        <Link component='button' variant='body1' color='inherit' underline='always' onClick={this.handleUploadTeamLogoDialog}>Upload</Link>
+        <UploadTeamLogoDialogView ref='uploadTeamLogoDialog' />
       </Paper>
     )
   }

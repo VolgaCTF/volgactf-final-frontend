@@ -89,7 +89,7 @@ class StreamStatusView extends Component {
         classes.push(this.props.classes.notAvailable)
         break
     }
-    return <Typography variant="body2" component="span" className={classes.join(' ')}>{`Stream: ${text}`}</Typography>
+    return <Typography variant='body2' component='span' className={classes.join(' ')}>{`Stream: ${text}`}</Typography>
   }
 }
 

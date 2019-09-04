@@ -20,7 +20,7 @@ class LogStore {
     })
 
     eventManager.on('log', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       data.id = parseInt(e.lastEventId, 10)
       this.cache.push(new LogModel(data))
     })

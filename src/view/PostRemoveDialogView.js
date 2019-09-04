@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Typography } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@material-ui/core'
 
 import PostActions from '../actions/PostActions.js'
 
@@ -8,19 +8,19 @@ export default class PostRemoveDialog extends Component {
   constructor (props) {
     super(props)
 
-    this.onOK = this.onOK.bind(this)
-    this.onCancel = this.onCancel.bind(this)
+    this.handleOK = this.handleOK.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
 
     this.state = {
       open: false
     }
   }
 
-  onCancel () {
+  handleCancel () {
     this.dismiss()
   }
 
-  onOK () {
+  handleOK () {
     PostActions.remove(this.props.id)
     this.dismiss()
   }
@@ -47,8 +47,8 @@ export default class PostRemoveDialog extends Component {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button size="small" onClick={this.onCancel}>No</Button>
-          <Button size="small" color="primary" onClick={this.onOK}>Yes</Button>
+          <Button size='small' onClick={this.handleCancel}>No</Button>
+          <Button size='small' color='primary' onClick={this.handleOK}>Yes</Button>
         </DialogActions>
       </Dialog>
     )

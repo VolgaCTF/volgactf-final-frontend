@@ -9,7 +9,7 @@ export default class ScoreTableTotalScoreCellView extends Component {
   render () {
     return (
       <TableCell>
-        <Typography variant="body2" component="span" color={this.props.muted ? 'textSecondary' : 'initial'}>
+        <Typography variant='body2' component='span' color={this.props.muted ? 'textSecondary' : 'initial'}>
           {numeral(this.props.value).format('0.00')}
         </Typography>
         {
@@ -18,8 +18,8 @@ export default class ScoreTableTotalScoreCellView extends Component {
               return null
             }
             return [
-              <br key={0}/>,
-              <Typography key={1} variant="caption" component="span" color={this.props.muted ? 'textSecondary' : 'initial'}>
+              <br key={0} />,
+              <Typography key={1} variant='caption' component='span' color={this.props.muted ? 'textSecondary' : 'initial'}>
                 last attack at {moment(this.props.lastAttack).format('HH:mm:ss')}
               </Typography>
             ]

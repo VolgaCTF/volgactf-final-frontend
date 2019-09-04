@@ -20,7 +20,7 @@ class TeamServicePullStateStore {
     })
 
     eventManager.on('team/service/pull-state', (e) => {
-      let data = JSON.parse(e.data)
+      const data = JSON.parse(e.data)
       TeamServicePullStateActions.updateSingle(new TeamServicePullStateModel(data))
     })
   }
@@ -34,7 +34,7 @@ class TeamServicePullStateStore {
   }
 
   handleUpdateSingle (teamServicePullState) {
-    let ndx = this.state.collection.findIndex(x => (x.teamId === teamServicePullState.teamId && x.serviceId === teamServicePullState.serviceId))
+    const ndx = this.state.collection.findIndex(x => (x.teamId === teamServicePullState.teamId && x.serviceId === teamServicePullState.serviceId))
     this.setState({
       loading: false,
       err: null,

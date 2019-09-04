@@ -67,10 +67,10 @@ class TeamScoreStore {
   }
 }
 
-let storeCache = {}
+const storeCache = {}
 
 export function createTeamScoreStore (teamId) {
-  if (!storeCache.hasOwnProperty(teamId)) {
+  if (!Object.prototype.hasOwnProperty.call(storeCache, teamId)) {
     storeCache[teamId] = alt.createStore(TeamScoreStore, `TeamScoreStore#${teamId}`, teamId)
   }
   return storeCache[teamId]

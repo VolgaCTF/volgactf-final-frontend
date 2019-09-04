@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DocumentTitle from 'react-document-title'
 
@@ -25,10 +25,9 @@ class IndexView extends Component {
   render () {
     return (
       <DocumentTitle title={this.props.customContent.competitionTitle}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
-          <Typography variant="h4" component="h1">{this.props.customContent.indexTitle}</Typography>
-          <Typography variant="body1" dangerouslySetInnerHTML={{__html: this.md.render(this.props.customContent.indexDescription)}}>
-          </Typography>
+        <Paper elevation={0} square className={this.props.classes.root}>
+          <Typography variant='h4' component='h1'>{this.props.customContent.indexTitle}</Typography>
+          <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.props.customContent.indexDescription) }} />
         </Paper>
       </DocumentTitle>
     )

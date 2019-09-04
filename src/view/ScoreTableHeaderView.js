@@ -42,20 +42,20 @@ const styles = theme => ({
 
 class ScoreTableHeaderView extends Component {
   render () {
-    let cells = this.props.order.map((column, ndx) => {
+    const cells = this.props.order.map((column, ndx) => {
       const header = this.props.headers[column]
-      if (typeof header.service != undefined && header.service) {
+      if (typeof header.service !== 'undefined' && header.service) {
         return (
-          <TableCell key={ndx} align="center">
-            <Typography variant="body2" component="span" color="textPrimary" className={this.props.classes.root}>
+          <TableCell key={ndx} align='center'>
+            <Typography variant='body2' component='span' color='textPrimary' className={this.props.classes.root}>
               {header.name}
             </Typography>
             {
               (() => {
                 if (header.meta.attackPriority && header.meta.awardDefenceAfter === null) {
                   return (
-                    <span className={this.props.classes.iconWrapper} title="Defence points will be awarded after the first attack">
-                      <Info className={this.props.classes.infoIcon}/>
+                    <span className={this.props.classes.iconWrapper} title='Defence points will be awarded after the first attack'>
+                      <Info className={this.props.classes.infoIcon} />
                     </span>
                   )
                 }
@@ -67,7 +67,7 @@ class ScoreTableHeaderView extends Component {
                 if (header.meta.disableIn !== null) {
                   return (
                     <span className={this.props.classes.iconWrapper} title={`The service will be disabled after the end of round ${header.meta.disableIn}`}>
-                      <Warning className={this.props.classes.warningIcon}/>
+                      <Warning className={this.props.classes.warningIcon} />
                     </span>
                   )
                 }
@@ -76,30 +76,30 @@ class ScoreTableHeaderView extends Component {
             }
           </TableCell>
         )
-      } else if (typeof header.team != undefined && header.team) {
+      } else if (typeof header.team !== 'undefined' && header.team) {
         return (
-          <TableCell key={ndx} align="left">
-            <span className={this.props.classes.teamLogoPlaceholder}></span>
-            <Typography variant="body2" component="span" color="textPrimary" className={this.props.classes.root}>
+          <TableCell key={ndx} align='left'>
+            <span className={this.props.classes.teamLogoPlaceholder} />
+            <Typography variant='body2' component='span' color='textPrimary' className={this.props.classes.root}>
               {header.title}
             </Typography>
           </TableCell>
         )
-      } if (typeof header.freezable != undefined && this.props.muted) {
+      } if (typeof header.freezable !== 'undefined' && this.props.muted) {
         return (
-          <TableCell key={ndx} align="left">
-            <Typography variant="body2" component="span" color="textPrimary" className={this.props.classes.root}>
+          <TableCell key={ndx} align='left'>
+            <Typography variant='body2' component='span' color='textPrimary' className={this.props.classes.root}>
               {header.title}
             </Typography>
-            <span className={this.props.classes.iconWrapper} title="Scoreboard is frozen">
-              <VisibilityOff className={this.props.classes.visibilityOffIcon}/>
+            <span className={this.props.classes.iconWrapper} title='Scoreboard is frozen'>
+              <VisibilityOff className={this.props.classes.visibilityOffIcon} />
             </span>
           </TableCell>
         )
       }
       return (
-        <TableCell key={ndx} align="left">
-          <Typography variant="body2" component="span" color="textPrimary" className={this.props.classes.root}>
+        <TableCell key={ndx} align='left'>
+          <Typography variant='body2' component='span' color='textPrimary' className={this.props.classes.root}>
             {header.title}
           </Typography>
         </TableCell>

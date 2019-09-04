@@ -55,7 +55,7 @@ class PostStore {
   }
 
   handleOnEdit (post) {
-    let ndx = this.state.collection.findIndex(x => x.id === post.id)
+    const ndx = this.state.collection.findIndex(x => x.id === post.id)
     this.setState({
       loading: false,
       err: null,

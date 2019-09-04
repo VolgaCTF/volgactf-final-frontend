@@ -42,7 +42,7 @@ class CompetitionRoundView extends Component {
 
   render () {
     if (this.state.loading) {
-      return <span></span>
+      return null
     }
 
     if (this.state.err) {
@@ -50,13 +50,13 @@ class CompetitionRoundView extends Component {
     }
 
     if (this.state.model.value == null) {
-      return <span></span>
+      return null
     }
 
     const { classes } = this.props
 
     return (
-      <Typography variant="body2" component="span" className={classes.root}>{`Round ${this.state.model.value}`}</Typography>
+      <Typography variant='body2' component='span' className={classes.root}>{`Round ${this.state.model.value}`}</Typography>
     )
   }
 }

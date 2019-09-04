@@ -89,8 +89,8 @@ class LogsView extends Component {
   render () {
     return (
       <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Logs`}>
-        <Paper elevation={0} square={true} className={this.props.classes.root}>
-          <Typography variant="h4" component="h1">Logs</Typography>
+        <Paper elevation={0} square className={this.props.classes.root}>
+          <Typography variant='h4' component='h1'>Logs</Typography>
           {
             (() => {
               if (this.isLoading()) {
@@ -115,4 +115,3 @@ LogsView.propTypes = {
 }
 
 export default withStyles(styles)(LogsView)
-

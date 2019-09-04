@@ -62,7 +62,7 @@ class ScoreTableServiceStateCellView extends Component {
     }
   }
 
-  getStateClasses(data) {
+  getStateClasses (data) {
     const classes = [this.props.classes.root]
     if (data.dim) {
       classes.push(this.props.classes.dim)
@@ -97,9 +97,6 @@ class ScoreTableServiceStateCellView extends Component {
     let pushUpdated = this.props.value.push.updated ? `Updated at ${moment(this.props.value.push.updated).format('HH:mm:ss')}` : 'Updated: never'
     let pullUpdated = this.props.value.pull.updated ? `Updated at ${moment(this.props.value.pull.updated).format('HH:mm:ss')}` : 'Updated: never'
 
-    const pushDim = this.props.value.push.dim
-    const pullDim = this.props.value
-
     if (this.props.value.push.message) {
       pushUpdated += `\nMessage from the service checker:\n${this.props.value.push.message}`
     }
@@ -114,14 +111,14 @@ class ScoreTableServiceStateCellView extends Component {
           <Grid item xs={6}>
             <div title={pushUpdated} className={this.getStateClasses(this.props.value.push).join(' ')}>
               {`push${this.props.value.push.updated ? moment(this.props.value.push.updated).format(' HH:mm:ss') : ''}`}
-              <br/>
+              <br />
               {this.getStateDescription(pushValue)}
             </div>
           </Grid>
           <Grid item xs={6}>
             <div title={pullUpdated} className={this.getStateClasses(this.props.value.pull).join(' ')}>
               {`pull${this.props.value.pull.updated ? moment(this.props.value.pull.updated).format(' HH:mm:ss') : ''}`}
-              <br/>
+              <br />
               {this.getStateDescription(pullValue)}
             </div>
           </Grid>

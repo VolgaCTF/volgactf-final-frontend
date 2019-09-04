@@ -6,24 +6,24 @@ class TeamActions {
   static fetchPromise () {
     return new Promise((resolve, reject) => {
       fetch('/api/teams')
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          return response.json()
-        } else {
-          let err = new Error(response.statusText)
-          err.response = response
-          throw err
-        }
-      })
-      .then((data) => {
-        let teams = data.map((props) => {
-          return new TeamModel(props)
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json()
+          } else {
+            const err = new Error(response.statusText)
+            err.response = response
+            throw err
+          }
         })
-        resolve(new List(teams))
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .then((data) => {
+          const teams = data.map((props) => {
+            return new TeamModel(props)
+          })
+          resolve(new List(teams))
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -40,13 +40,13 @@ class TeamActions {
       dispatch()
 
       TeamActions
-      .fetchPromise()
-      .then((teams) => {
-        this.update(teams)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((teams) => {
+          this.update(teams)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

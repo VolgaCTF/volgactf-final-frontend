@@ -9,7 +9,7 @@ class CompetitionStageActions {
           if (response.status >= 200 && response.status < 300) {
             return response.json()
           } else {
-            let err = new Error(response.statusText)
+            const err = new Error(response.statusText)
             err.response = response
             throw err
           }
@@ -32,13 +32,13 @@ class CompetitionStageActions {
       dispatch()
 
       CompetitionStageActions
-      .fetchPromise()
-      .then((competitionStage) => {
-        this.update(competitionStage)
-      })
-      .catch((err) => {
-        this.failed(err)
-      })
+        .fetchPromise()
+        .then((competitionStage) => {
+          this.update(competitionStage)
+        })
+        .catch((err) => {
+          this.failed(err)
+        })
     }
   }
 

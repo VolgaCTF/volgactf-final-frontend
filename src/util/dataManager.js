@@ -11,22 +11,22 @@ class DataManager {
         resolve(this.identity)
       } else {
         fetch('/api/identity')
-        .then((response) => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json()
-          } else {
-            let err = new Error(response.statusText)
-            err.response = response
-            throw err
-          }
-        })
-        .then((data) => {
-          this.identity = new IdentityModel(data)
-          resolve(this.identity)
-        })
-        .catch((err) => {
-          reject(err)
-        })
+          .then((response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json()
+            } else {
+              const err = new Error(response.statusText)
+              err.response = response
+              throw err
+            }
+          })
+          .then((data) => {
+            this.identity = new IdentityModel(data)
+            resolve(this.identity)
+          })
+          .catch((err) => {
+            reject(err)
+          })
       }
     })
   }

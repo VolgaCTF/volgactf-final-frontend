@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import { withStyles } from '@material-ui/styles'
-import { Button, Card, CardActions, CardActionArea, CardContent, Typography } from '@material-ui/core'
+import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core'
 
 import PostRemoveDialogView from './PostRemoveDialogView.js'
 import PostEditDialogView from './PostEditDialogView.js'
@@ -17,19 +17,19 @@ const styles = theme => ({
   }
 })
 
-class PostView extends React.Component {
+class PostView extends Component {
   constructor (props) {
     super(props)
     this.md = new MarkdownRenderer()
-    this.onEditPost = this.onEditPost.bind(this)
-    this.onRemovePost = this.onRemovePost.bind(this)
+    this.handleEditPost = this.handleEditPost.bind(this)
+    this.handleRemovePost = this.handleRemovePost.bind(this)
   }
 
-  onEditPost () {
+  handleEditPost () {
     this.refs.editDialog.start()
   }
 
-  onRemovePost () {
+  handleRemovePost () {
     this.refs.removeDialog.start()
   }
 
@@ -37,12 +37,11 @@ class PostView extends React.Component {
     return (
       <Card className={this.props.classes.root}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant='h5' component='h2'>
             {this.props.title}
           </Typography>
-          <Typography variant="body1" dangerouslySetInnerHTML={{__html: this.md.render(this.props.description)}}>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.props.description) }} />
+          <Typography variant='body2' color='textSecondary' component='p'>
             Published on {moment(this.props.updatedAt).format('lll')}
           </Typography>
         </CardContent>
@@ -51,8 +50,8 @@ class PostView extends React.Component {
             if (this.props.identity.isInternal()) {
               return (
                 <CardActions>
-                  <Button size="small" onClick={this.onEditPost}>Edit</Button>
-                  <Button size="small" onClick={this.onRemovePost}>Remove</Button>
+                  <Button size='small' onClick={this.handleEditPost}>Edit</Button>
+                  <Button size='small' onClick={this.handleRemovePost}>Remove</Button>
                 </CardActions>
               )
             } else {

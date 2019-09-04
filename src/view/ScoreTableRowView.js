@@ -30,7 +30,7 @@ export default class ScoreTableRowView extends Component {
 
       return (
         <TableCell key={ndx}>
-          <Typography variant="body2" component="span">
+          <Typography variant='body2' component='span'>
             {value}
           </Typography>
         </TableCell>
