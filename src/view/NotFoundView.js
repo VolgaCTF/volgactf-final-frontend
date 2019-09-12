@@ -31,7 +31,7 @@ class NotFoundView extends Component {
     const links = [
       <li key={0}><Link href='/' onClick={this.handleNavigate}>Home</Link></li>,
       <li key={1}><Link href='/scoreboard' onClick={this.handleNavigate}>Scoreboard</Link></li>,
-      <li key={2}><Link href='/news' onClick={this.handleNavigate}>News</Link></li>
+      <li key={2}><Link href='/notifications' onClick={this.handleNavigate}>Notifications</Link></li>
     ]
 
     if (this.props.identity.isInternal()) {

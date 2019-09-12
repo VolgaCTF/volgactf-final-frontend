@@ -9,7 +9,7 @@ import { AppBar, Toolbar, Typography, Link, Tabs, Tab, Container } from '@materi
 import { grey } from '@material-ui/core/colors'
 
 import IndexView from './view/IndexView.js'
-import NewsView from './view/NewsView.js'
+import NotificationListPage from './view/NotificationListPage.js'
 import ScoreboardView from './view/ScoreboardView.js'
 import TeamScoreView from './view/TeamScoreView.js'
 import LogsView from './view/LogsView.js'
@@ -76,10 +76,10 @@ class App extends Component {
     const tabs = [
       <Tab key='home' label='Home' value='/' />,
       <Tab key='scoreboard' label='Scoreboard' value='/scoreboard' />,
-      <Tab key='news' label='News' value='/news' />
+      <Tab key='notifications' label='Notifications' value='/notifications' />
     ]
 
-    if (['/', '/scoreboard', '/news', '/logs', '/team/stats'].indexOf(this.props.location.pathname) !== -1) {
+    if (['/', '/scoreboard', '/notifications', '/logs', '/team/stats'].indexOf(this.props.location.pathname) !== -1) {
       selectedTab = this.props.location.pathname
     }
 
@@ -118,7 +118,7 @@ class App extends Component {
           <Switch>
             <Route path='/' exact render={props => <IndexView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
             <Route path='/scoreboard' render={props => <ScoreboardView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
-            <Route path='/news' render={props => <NewsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+            <Route path='/notifications' render={props => <NotificationListPage {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
             {
               (() => {
                 if (this.props.identity.isInternal()) {

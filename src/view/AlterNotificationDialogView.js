@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { withStyles } from '@material-ui/styles'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Card, CardContent, Grid } from '@material-ui/core'
+import moment from 'moment'
 
-import PostActions from '../actions/PostActions.js'
+import { withStyles } from '@material-ui/styles'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Card, CardContent, Grid, CardHeader } from '@material-ui/core'
+
+import NotificationActions from '../actions/NotificationActions.js'
 import MarkdownRenderer from '../util/MarkdownRenderer.js'
+
+import TeamSelectView from './TeamSelectView.js'
 
 const styles = theme => ({
   previewWrapper: {
     height: '100%',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(1)
   },
   preview: {
@@ -19,10 +23,17 @@ const styles = theme => ({
       verticalAlign: 'middle',
       maxHeight: '1em'
     }
+  },
+  previewHeader: {
+    paddingBottom: theme.spacing(0)
+  },
+  previewContent: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   }
 })
 
-class PostAddDialogView extends Component {
+class AlterNotificationDialogView extends Component {
   constructor (props) {
     super(props)
 
@@ -35,8 +46,8 @@ class PostAddDialogView extends Component {
     this.handleChangeDescription = this.handleChangeDescription.bind(this)
 
     this.state = {
-      title: '',
-      description: '',
+      title: this.props.title,
+      description: this.props.description,
       open: false
     }
   }
@@ -46,7 +57,7 @@ class PostAddDialogView extends Component {
   }
 
   handleOK () {
-    PostActions.add(this.state.title, this.state.description)
+    NotificationActions.alter(this.props.id, this.state.title, this.state.description)
     this.dismiss()
   }
 
@@ -64,8 +75,8 @@ class PostAddDialogView extends Component {
 
   start () {
     this.setState({
-      title: '',
-      description: '',
+      title: this.props.title,
+      description: this.props.description,
       open: true
     })
   }
@@ -77,23 +88,33 @@ class PostAddDialogView extends Component {
   }
 
   render () {
+    let title = this.state.title || '<todo>: create a title'
+    if (this.props.teamId != null) {
+      const team = this.props.teams.find(x => x.id === this.props.teamId)
+      title = `[${team.name}] ${title}`
+    }
     return (
       <Dialog open={this.state.open} fullWidth maxWidth='md'>
-        <DialogTitle>Add post</DialogTitle>
+        <DialogTitle>Alter notification</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={6}>
+              <TeamSelectView disabled value={(this.props.teamId == null) ? 0 : this.props.teamId} teams={this.props.teams} />
               <TextField variant='outlined' margin='normal' label='Title' fullWidth autoFocus value={this.state.title} onChange={this.handleChangeTitle} />
               <TextField variant='outlined' margin='normal' label='Description' fullWidth multiline rows={4} rowsMax={8} value={this.state.description} onChange={this.handleChangeDescription} />
             </Grid>
             <Grid item xs={6}>
               <div className={this.props.classes.previewWrapper}>
                 <Card className={this.props.classes.preview}>
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      {this.state.title || '<todo>: write a title'}
-                    </Typography>
-                    <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.state.description || '<todo>: write a description') }} />
+                  <CardHeader
+                    title={title}
+                    titleTypographyProps={{ gutterBottom: true, variant: 'h5', component: 'h2' }}
+                    subheader={moment(new Date()).format('lll')}
+                    subheaderTypographyProps={{ variant: 'body2', color: 'textSecondary' }}
+                    classes={{ root: this.props.classes.previewHeader }}
+                  />
+                  <CardContent classes={{ root: this.props.classes.previewContent }}>
+                    <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.state.description || '<todo>: create a description') }} />
                   </CardContent>
                 </Card>
               </div>
@@ -102,15 +123,15 @@ class PostAddDialogView extends Component {
         </DialogContent>
         <DialogActions>
           <Button size='small' onClick={this.handleCancel}>Cancel</Button>
-          <Button size='small' color='primary' onClick={this.handleOK}>Save</Button>
+          <Button size='small' color='primary' onClick={this.handleOK}>Update</Button>
         </DialogActions>
       </Dialog>
     )
   }
 }
 
-PostAddDialogView.propTypes = {
+AlterNotificationDialogView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(PostAddDialogView)
+export default withStyles(styles)(AlterNotificationDialogView)

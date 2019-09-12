@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@material-ui/core'
 
-import PostActions from '../actions/PostActions.js'
+import NotificationActions from '../actions/NotificationActions.js'
 
-export default class PostRemoveDialog extends Component {
+export default class RemoveNotificationDialog extends Component {
   constructor (props) {
     super(props)
 
@@ -21,7 +21,7 @@ export default class PostRemoveDialog extends Component {
   }
 
   handleOK () {
-    PostActions.remove(this.props.id)
+    NotificationActions.remove(this.props.id)
     this.dismiss()
   }
 
@@ -40,10 +40,10 @@ export default class PostRemoveDialog extends Component {
   render () {
     return (
       <Dialog open={this.state.open}>
-        <DialogTitle>Remove post</DialogTitle>
+        <DialogTitle>Remove notification</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Do you really want to remove post <i>{this.props.title}</i>?
+            Do you really want to remove notification <i>{this.props.title}</i>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { withStyles } from '@material-ui/styles'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Card, CardContent, Grid } from '@material-ui/core'
+import moment from 'moment'
 
-import PostActions from '../actions/PostActions.js'
+import { withStyles } from '@material-ui/styles'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Card, CardContent, Grid, CardHeader } from '@material-ui/core'
+
+import NotificationActions from '../actions/NotificationActions.js'
 import MarkdownRenderer from '../util/MarkdownRenderer.js'
+
+import TeamSelectView from './TeamSelectView.js'
 
 const styles = theme => ({
   previewWrapper: {
     height: '100%',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(1)
   },
   preview: {
@@ -19,10 +23,17 @@ const styles = theme => ({
       verticalAlign: 'middle',
       maxHeight: '1em'
     }
+  },
+  previewHeader: {
+    paddingBottom: theme.spacing(0)
+  },
+  previewContent: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   }
 })
 
-class PostEditDialogView extends Component {
+class AddNotificationDialogView extends Component {
   constructor (props) {
     super(props)
 
@@ -33,10 +44,12 @@ class PostEditDialogView extends Component {
 
     this.handleChangeTitle = this.handleChangeTitle.bind(this)
     this.handleChangeDescription = this.handleChangeDescription.bind(this)
+    this.handleChangeNotify = this.handleChangeNotify.bind(this)
 
     this.state = {
-      title: this.props.title,
-      description: this.props.description,
+      title: '',
+      description: '',
+      teamId: null,
       open: false
     }
   }
@@ -46,7 +59,7 @@ class PostEditDialogView extends Component {
   }
 
   handleOK () {
-    PostActions.edit(this.props.id, this.state.title, this.state.description)
+    NotificationActions.add(this.state.title, this.state.description, this.state.teamId)
     this.dismiss()
   }
 
@@ -62,10 +75,17 @@ class PostEditDialogView extends Component {
     })
   }
 
+  handleChangeNotify (event) {
+    this.setState({
+      teamId: event.target.value === '' ? null : parseInt(event.target.value, 10)
+    })
+  }
+
   start () {
     this.setState({
-      title: this.props.title,
-      description: this.props.description,
+      title: '',
+      description: '',
+      teamId: null,
       open: true
     })
   }
@@ -77,23 +97,33 @@ class PostEditDialogView extends Component {
   }
 
   render () {
+    let title = this.state.title || '<todo>: create a title'
+    if (this.state.teamId != null) {
+      const team = this.props.teams.find(x => x.id === this.state.teamId)
+      title = `[${team.name}] ${title}`
+    }
     return (
       <Dialog open={this.state.open} fullWidth maxWidth='md'>
-        <DialogTitle>Edit post</DialogTitle>
+        <DialogTitle>Add notification</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={6}>
+              <TeamSelectView value={(this.state.teamId == null) ? 0 : this.state.teamId} onChange={this.handleChangeNotify} teams={this.props.teams} />
               <TextField variant='outlined' margin='normal' label='Title' fullWidth autoFocus value={this.state.title} onChange={this.handleChangeTitle} />
               <TextField variant='outlined' margin='normal' label='Description' fullWidth multiline rows={4} rowsMax={8} value={this.state.description} onChange={this.handleChangeDescription} />
             </Grid>
             <Grid item xs={6}>
               <div className={this.props.classes.previewWrapper}>
                 <Card className={this.props.classes.preview}>
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      {this.state.title}
-                    </Typography>
-                    <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.state.description) }} />
+                  <CardHeader
+                    title={title}
+                    titleTypographyProps={{ gutterBottom: true, variant: 'h5', component: 'h2' }}
+                    subheader={moment(new Date()).format('lll')}
+                    subheaderTypographyProps={{ variant: 'body2', color: 'textSecondary' }}
+                    classes={{ root: this.props.classes.previewHeader }}
+                  />
+                  <CardContent classes={{ root: this.props.classes.previewContent }}>
+                    <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.state.description || '<todo>: create a description') }} />
                   </CardContent>
                 </Card>
               </div>
@@ -102,15 +132,15 @@ class PostEditDialogView extends Component {
         </DialogContent>
         <DialogActions>
           <Button size='small' onClick={this.handleCancel}>Cancel</Button>
-          <Button size='small' color='primary' onClick={this.handleOK}>Update</Button>
+          <Button size='small' color='primary' onClick={this.handleOK}>Save</Button>
         </DialogActions>
       </Dialog>
     )
   }
 }
 
-PostEditDialogView.propTypes = {
+AddNotificationDialogView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(PostEditDialogView)
+export default withStyles(styles)(AddNotificationDialogView)
