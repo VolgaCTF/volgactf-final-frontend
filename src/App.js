@@ -15,6 +15,7 @@ import TeamScoreView from './view/TeamScoreView.js'
 import LogsView from './view/LogsView.js'
 import NotFoundView from './view/NotFoundView.js'
 import CompetitionInfoBarView from './view/CompetitionInfoBarView.js'
+import NotificationTabLabelView from './view/NotificationTabLabelView.js'
 import eventManager from './util/eventManager.js'
 
 import customLogo from 'Branding/logo.js'
@@ -76,7 +77,7 @@ class App extends Component {
     const tabs = [
       <Tab key='home' label='Home' value='/' />,
       <Tab key='scoreboard' label='Scoreboard' value='/scoreboard' />,
-      <Tab key='notifications' label='Notifications' value='/notifications' />
+      <Tab key='notifications' label={(this.props.identity.isInternal() || this.props.identity.isTeam()) ? <NotificationTabLabelView /> : 'Notifications'} value='/notifications' />
     ]
 
     if (['/', '/scoreboard', '/notifications', '/logs', '/team/stats'].indexOf(this.props.location.pathname) !== -1) {

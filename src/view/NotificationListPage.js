@@ -9,6 +9,8 @@ import NotificationListView from './NotificationListView.js'
 import NotificationStore from '../store/NotificationStore.js'
 import NotificationActions from '../actions/NotificationActions.js'
 import AddNotificationDialogView from './AddNotificationDialogView.js'
+import NotificationStatusStore from '../store/NotificationStatusStore.js'
+import NotificationStatusActions from '../actions/NotificationStatusActions.js'
 
 import TeamActions from '../actions/TeamActions.js'
 import TeamStore from '../store/TeamStore.js'
@@ -29,24 +31,31 @@ class NotificationListPage extends Component {
 
     this.state = {
       notifications: NotificationStore.getState(),
+      notificationStatus: NotificationStatusStore.getState(),
       teams: TeamStore.getState()
     }
 
     this.onUpdateTeams = this.onUpdateTeams.bind(this)
     this.onUpdateNotifications = this.onUpdateNotifications.bind(this)
+    this.onUpdateNotificationStatus = this.onUpdateNotificationStatus.bind(this)
     this.handleAddDialog = this.handleAddDialog.bind(this)
   }
 
   componentDidMount () {
     TeamStore.listen(this.onUpdateTeams)
     NotificationStore.listen(this.onUpdateNotifications)
+    NotificationStatusStore.listen(this.onUpdateNotificationStatus)
     TeamActions.fetch()
     NotificationActions.fetch()
+    if (this.props.identity.isInternal() || this.props.identity.isTeam()) {
+      NotificationStatusActions.fetch()
+    }
   }
 
   componentWillUnmount () {
     TeamStore.unlisten(this.onUpdateTeams)
     NotificationStore.unlisten(this.onUpdateNotifications)
+    NotificationStatusStore.unlisten(this.onUpdateNotificationStatus)
   }
 
   onUpdateTeams (teams) {
@@ -61,6 +70,12 @@ class NotificationListPage extends Component {
     })
   }
 
+  onUpdateNotificationStatus (notificationStatus) {
+    this.setState({
+      notificationStatus: notificationStatus
+    })
+  }
+
   handleAddDialog () {
     this.refs.addDialog.start()
   }
@@ -68,14 +83,16 @@ class NotificationListPage extends Component {
   isLoading () {
     return (
       this.state.notifications.loading ||
-      this.state.teams.loading
+      this.state.teams.loading ||
+      this.state.notificationStatus.loading
     )
   }
 
   isError () {
     return (
       this.state.notifications.err ||
-      this.state.teams.err
+      this.state.teams.err ||
+      this.state.notificationStatus.err
     )
   }
 
@@ -120,7 +137,7 @@ class NotificationListPage extends Component {
                 return <Typography variant='body1' className={this.props.classes.topGutter}>No notifications yet</Typography>
               } else {
                 const sortedNotifications = this.state.notifications.collection.sortBy(x => x.updatedAt.getTime()).reverse()
-                return <NotificationListView notifications={sortedNotifications} teams={this.state.teams.collection} identity={this.props.identity} />
+                return <NotificationListView notifications={sortedNotifications} readItems={this.state.notificationStatus.read} teams={this.state.teams.collection} identity={this.props.identity} />
               }
             })()
           }

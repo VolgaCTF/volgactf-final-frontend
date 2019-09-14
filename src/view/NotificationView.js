@@ -5,9 +5,13 @@ import moment from 'moment'
 
 import { withStyles } from '@material-ui/styles'
 import { Button, Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core'
+import { red, grey, green } from '@material-ui/core/colors'
+import { Done, DoneAll } from '@material-ui/icons'
 
 import RemoveNotificationDialogView from './RemoveNotificationDialogView.js'
 import AlterNotificationDialogView from './AlterNotificationDialogView.js'
+
+import NotificationStatusActions from '../actions/NotificationStatusActions.js'
 
 import MarkdownRenderer from '../util/MarkdownRenderer.js'
 
@@ -21,6 +25,18 @@ const styles = theme => ({
   content: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1)
+  },
+  special: {
+    color: theme.palette.primary.main
+  },
+  iconWrapperUnread: {
+    padding: theme.spacing(1),
+    cursor: 'pointer',
+    color: grey['600']
+  },
+  iconWrapperRead: {
+    padding: theme.spacing(1),
+    color: green['A700']
   }
 })
 
@@ -30,6 +46,7 @@ class NotificationView extends Component {
     this.md = new MarkdownRenderer()
     this.handleAlterNotification = this.handleAlterNotification.bind(this)
     this.handleRemoveNotification = this.handleRemoveNotification.bind(this)
+    this.handleMarkAsRead = this.handleMarkAsRead.bind(this)
   }
 
   handleAlterNotification () {
@@ -40,24 +57,58 @@ class NotificationView extends Component {
     this.refs.removeDialog.start()
   }
 
+  handleMarkAsRead () {
+    NotificationStatusActions.markAsRead(this.props.id)
+  }
+
   render () {
-    let title = this.props.title
+    let title = <Typography variant='h5' component='h2'>{this.props.title}</Typography>
     if (this.props.teamId != null) {
       if (this.props.identity.isInternal()) {
         const team = this.props.teams.find(x => x.id === this.props.teamId)
-        title = `[${team.name}] ${this.props.title}`
+        title = (
+          <Typography variant='h5' component='h2'>
+            <span className={this.props.classes.special}>[{team.name}]</span>
+            &nbsp;
+            {this.props.title}
+          </Typography>
+        )
       } else if (this.props.identity.isTeam()) {
-        title = `[private] ${this.props.title}`
+        title = (
+          <Typography variant='h5' component='h2'>
+            <span className={this.props.classes.special}>[private]</span>
+            &nbsp;
+            {this.props.title}
+          </Typography>
+        )
       }
     }
+
+    let action = null
+    if (this.props.identity.isInternal() || this.props.identity.isTeam()) {
+      if (this.props.read) {
+        action = (
+          <span className={this.props.classes.iconWrapperRead} title='Read'>
+            <DoneAll />
+          </span>
+        )
+      } else {
+        action = (
+          <span className={this.props.classes.iconWrapperUnread} title='Mark as read' onClick={this.handleMarkAsRead}>
+            <Done />
+          </span>
+        )
+      }
+    }
+
     return (
       <Card className={this.props.classes.root}>
         <CardHeader
           title={title}
-          titleTypographyProps={{ gutterBottom: true, variant: 'h5', component: 'h2' }}
           subheader={moment(this.props.updatedAt).format('lll')}
           subheaderTypographyProps={{ variant: 'body2', color: 'textSecondary' }}
           classes={{ root: this.props.classes.header }}
+          action={action}
         />
         <CardContent classes={{ root: this.props.classes.content }}>
           <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.props.description) }} />
@@ -72,7 +123,7 @@ class NotificationView extends Component {
                 </CardActions>
               )
             } else {
-              return ''
+              return null
             }
           })()
         }

@@ -9,6 +9,7 @@ export default class NotificationListView extends Component {
         {
           (() => {
             return this.props.notifications.map((notification) => {
+              const read = this.props.readItems.includes(notification.id)
               return (
                 <NotificationView
                   key={notification.id}
@@ -17,6 +18,7 @@ export default class NotificationListView extends Component {
                   description={notification.description}
                   teamId={notification.teamId}
                   updatedAt={notification.updatedAt}
+                  read={read}
                   teams={this.props.teams}
                   identity={this.props.identity}
                 />

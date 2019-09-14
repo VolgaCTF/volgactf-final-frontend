@@ -52,5 +52,10 @@
     "globals": [
       "fetch"
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
