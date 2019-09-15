@@ -30,6 +30,9 @@ const styles = theme => ({
   previewContent: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1)
+  },
+  special: {
+    color: theme.palette.primary.main
   }
 })
 
@@ -88,11 +91,19 @@ class AlterNotificationDialogView extends Component {
   }
 
   render () {
-    let title = this.state.title || '<todo>: create a title'
+    const titleOrPlaceholder = this.state.title || '<todo>: create a title'
+    let title = <Typography variant='h5' component='h2'>{titleOrPlaceholder}</Typography>
     if (this.props.teamId != null) {
       const team = this.props.teams.find(x => x.id === this.props.teamId)
-      title = `[${team.name}] ${title}`
+      title = (
+        <Typography variant='h5' component='h2'>
+          <span className={this.props.classes.special}>[{team.name}]</span>
+          &nbsp;
+          {titleOrPlaceholder}
+        </Typography>
+      )
     }
+
     return (
       <Dialog open={this.state.open} fullWidth maxWidth='md'>
         <DialogTitle>Alter notification</DialogTitle>
@@ -108,7 +119,6 @@ class AlterNotificationDialogView extends Component {
                 <Card className={this.props.classes.preview}>
                   <CardHeader
                     title={title}
-                    titleTypographyProps={{ gutterBottom: true, variant: 'h5', component: 'h2' }}
                     subheader={moment(new Date()).format('lll')}
                     subheaderTypographyProps={{ variant: 'body2', color: 'textSecondary' }}
                     classes={{ root: this.props.classes.previewHeader }}

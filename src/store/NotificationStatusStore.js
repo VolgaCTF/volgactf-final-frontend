@@ -4,7 +4,6 @@ import alt from '../util/alt.js'
 import eventManager from '../util/eventManager.js'
 
 import NotificationStatusActions from '../actions/NotificationStatusActions.js'
-import NotificationModel from '../model/NotificationModel.js'
 
 class NotificationStatusStore {
   constructor () {
@@ -91,7 +90,7 @@ class NotificationStatusStore {
     this.setState({
       loading: false,
       err: null,
-      total: this.state.total +1,
+      total: this.state.total + 1,
       read: this.state.read
     })
   }

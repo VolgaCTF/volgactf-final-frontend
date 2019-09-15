@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import { withStyles } from '@material-ui/styles'
 import { Button, Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core'
-import { red, grey, green } from '@material-ui/core/colors'
+import { grey, green } from '@material-ui/core/colors'
 import { Done, DoneAll } from '@material-ui/icons'
 
 import RemoveNotificationDialogView from './RemoveNotificationDialogView.js'
@@ -14,6 +14,8 @@ import AlterNotificationDialogView from './AlterNotificationDialogView.js'
 import NotificationStatusActions from '../actions/NotificationStatusActions.js'
 
 import MarkdownRenderer from '../util/MarkdownRenderer.js'
+
+import { InView } from 'react-intersection-observer'
 
 const styles = theme => ({
   root: {
@@ -36,7 +38,7 @@ const styles = theme => ({
   },
   iconWrapperRead: {
     padding: theme.spacing(1),
-    color: green['A700']
+    color: green.A700
   }
 })
 
@@ -47,6 +49,7 @@ class NotificationView extends Component {
     this.handleAlterNotification = this.handleAlterNotification.bind(this)
     this.handleRemoveNotification = this.handleRemoveNotification.bind(this)
     this.handleMarkAsRead = this.handleMarkAsRead.bind(this)
+    this.handleInView = this.handleInView.bind(this)
   }
 
   handleAlterNotification () {
@@ -59,6 +62,12 @@ class NotificationView extends Component {
 
   handleMarkAsRead () {
     NotificationStatusActions.markAsRead(this.props.id)
+  }
+
+  handleInView (inView, entry) {
+    if (inView && (this.props.identity.isInternal() || this.props.identity.isTeam()) && !this.props.read) {
+      NotificationStatusActions.markAsRead(this.props.id)
+    }
   }
 
   render () {
@@ -111,7 +120,9 @@ class NotificationView extends Component {
           action={action}
         />
         <CardContent classes={{ root: this.props.classes.content }}>
-          <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.props.description) }} />
+          <InView as='div' threshold={1} onChange={this.handleInView}>
+            <Typography variant='body1' dangerouslySetInnerHTML={{ __html: this.md.render(this.props.description) }} />
+          </InView>
         </CardContent>
         {
           (() => {
