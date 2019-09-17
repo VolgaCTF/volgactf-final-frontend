@@ -1,11 +1,11 @@
 import { List } from 'immutable'
 
 import alt from '../util/alt.js'
-import LogActions from '../actions/LogActions.js'
+import EventLiveActions from '../actions/EventLiveActions.js'
 import eventManager from '../util/eventManager.js'
-import LogModel from '../model/LogModel.js'
+import EventModel from '../model/EventModel.js'
 
-class LogStore {
+class EventLiveStore {
   constructor () {
     this.cache = []
 
@@ -16,36 +16,36 @@ class LogStore {
     }
 
     this.bindListeners({
-      handlePush: LogActions.PUSH
+      handlePush: EventLiveActions.PUSH
     })
 
     eventManager.on('log', (e) => {
       const data = JSON.parse(e.data)
       data.id = parseInt(e.lastEventId, 10)
-      this.cache.push(new LogModel(data))
+      this.cache.push(new EventModel(data))
     })
 
-    this.recordLimit = 500
+    this.recordLimit = 250
     this.onRefresh = this.onRefresh.bind(this)
-    this.refreshInterval = setInterval(this.onRefresh, 2500)
+    this.refreshInterval = setInterval(this.onRefresh, 2000)
   }
 
   onRefresh () {
-    LogActions.push(this.cache)
+    EventLiveActions.push(this.cache)
     this.cache = []
   }
 
-  handlePush (logs) {
-    if (this.state.collection.size + logs.length > this.recordLimit) {
+  handlePush (entries) {
+    if (this.state.collection.size + entries.length > this.recordLimit) {
       this.state.collection = this.state.collection.slice(-this.recordLimit)
     }
 
     this.setState({
       loading: false,
       err: null,
-      collection: List.prototype.push.apply(this.state.collection, logs).groupBy(x => x.id).map(x => x.first()).toList()
+      collection: List.prototype.push.apply(this.state.collection, entries).groupBy(x => x.id).map(x => x.first()).toList()
     })
   }
 }
 
-export default alt.createStore(LogStore, 'LogStore')
+export default alt.createStore(EventLiveStore, 'EventLiveStore')

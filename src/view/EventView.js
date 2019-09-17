@@ -55,7 +55,7 @@ const styles = theme => ({
   }
 })
 
-class LogView extends Component {
+class EventView extends Component {
   renderDefault (params) {
     return <span className={this.props.classes.grey600}>{JSON.stringify(params)}</span>
   }
@@ -250,8 +250,8 @@ class LogView extends Component {
   }
 }
 
-LogView.propTypes = {
+EventView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(LogView)
+export default withStyles(styles)(EventView)

@@ -12,11 +12,13 @@ import IndexView from './view/IndexView.js'
 import NotificationListPage from './view/NotificationListPage.js'
 import ScoreboardView from './view/ScoreboardView.js'
 import TeamScoreView from './view/TeamScoreView.js'
-import LogsView from './view/LogsView.js'
 import NotFoundView from './view/NotFoundView.js'
 import CompetitionInfoBarView from './view/CompetitionInfoBarView.js'
 import NotificationTabLabelView from './view/NotificationTabLabelView.js'
 import eventManager from './util/eventManager.js'
+
+import EventLiveView from './view/EventLiveView.js'
+import EventHistoryPage from './view/EventHistoryPage.js'
 
 import customLogo from 'Branding/logo.js'
 
@@ -80,16 +82,26 @@ class App extends Component {
       <Tab key='notifications' label={(this.props.identity.isInternal() || this.props.identity.isTeam()) ? <NotificationTabLabelView /> : 'Notifications'} value='/notifications' />
     ]
 
-    if (['/', '/scoreboard', '/notifications', '/logs', '/team/stats'].indexOf(this.props.location.pathname) !== -1) {
-      selectedTab = this.props.location.pathname
-    }
+    const possiblePaths = [
+      '/',
+      '/scoreboard',
+      '/notifications'
+    ]
 
     if (this.props.identity.isTeam()) {
+      possiblePaths.push('/team/stats')
       tabs.push(<Tab key='team/stats' label='Stats' value='/team/stats' />)
     }
 
     if (this.props.identity.isInternal()) {
-      tabs.push(<Tab key='logs' label='Logs' value='/logs' />)
+      possiblePaths.push('/event/live')
+      tabs.push(<Tab key='event/live' label='Event live' value='/event/live' />)
+      possiblePaths.push('/event/history')
+      tabs.push(<Tab key='event/history' label='Event history' value='/event/history' />)
+    }
+
+    if (possiblePaths.indexOf(this.props.location.pathname) !== -1) {
+      selectedTab = this.props.location.pathname
     }
 
     return (
@@ -133,9 +145,10 @@ class App extends Component {
             {
               (() => {
                 if (this.props.identity.isInternal()) {
-                  return (
-                    <Route path='/logs' render={props => <LogsView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
-                  )
+                  return [
+                    <Route key={0} path='/event/history' render={props => <EventHistoryPage {...props} identity={this.props.identity} customContent={this.props.customContent} />} />,
+                    <Route key={1} path='/event/live' render={props => <EventLiveView {...props} identity={this.props.identity} customContent={this.props.customContent} />} />
+                  ]
                 }
                 return null
               })()

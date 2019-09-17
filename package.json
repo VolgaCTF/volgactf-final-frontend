@@ -23,6 +23,7 @@
     "react-intersection-observer": "^8.24.2",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-router-query-params": "^1.0.3",
     "twemoji": "^12.1.2",
     "typeface-roboto": "0.0.75"
   },

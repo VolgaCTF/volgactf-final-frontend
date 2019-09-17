@@ -5,9 +5,9 @@ import DocumentTitle from 'react-document-title'
 import { withStyles } from '@material-ui/styles'
 import { Paper, Typography } from '@material-ui/core'
 
-import LogStore from '../store/LogStore.js'
+import EventLiveStore from '../store/EventLiveStore.js'
 
-import LogListView from './LogListView.js'
+import EventListView from './EventListView.js'
 
 import TeamActions from '../actions/TeamActions.js'
 import TeamStore from '../store/TeamStore.js'
@@ -22,12 +22,12 @@ const styles = theme => ({
   }
 })
 
-class LogsView extends Component {
+class EventLiveView extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      logs: LogStore.getState(),
+      logs: EventLiveStore.getState(),
       teams: TeamStore.getState(),
       services: ServiceStore.getState()
     }
@@ -40,7 +40,7 @@ class LogsView extends Component {
   componentDidMount () {
     TeamStore.listen(this.onUpdateTeams)
     ServiceStore.listen(this.onUpdateServices)
-    LogStore.listen(this.onUpdateLogs)
+    EventLiveStore.listen(this.onUpdateLogs)
 
     TeamActions.fetch()
     ServiceActions.fetch()
@@ -49,7 +49,7 @@ class LogsView extends Component {
   componentWillUnmount () {
     TeamStore.unlisten(this.onUpdateTeams)
     ServiceStore.unlisten(this.onUpdateServices)
-    LogStore.unlisten(this.onUpdateLogs)
+    EventLiveStore.unlisten(this.onUpdateLogs)
   }
 
   onUpdateTeams (teams) {
@@ -88,9 +88,9 @@ class LogsView extends Component {
 
   render () {
     return (
-      <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Logs`}>
+      <DocumentTitle title={`${this.props.customContent.competitionTitle} :: Event live`}>
         <Paper elevation={0} square className={this.props.classes.root}>
-          <Typography variant='h4' component='h1'>Logs</Typography>
+          <Typography variant='h4' component='h1'>Event live</Typography>
           {
             (() => {
               if (this.isLoading()) {
@@ -101,7 +101,7 @@ class LogsView extends Component {
                 return <p>Failed to fetch data</p>
               }
 
-              return <LogListView logs={this.state.logs.collection} teams={this.state.teams.collection} services={this.state.services.collection} />
+              return <EventListView logs={this.state.logs.collection} teams={this.state.teams.collection} services={this.state.services.collection} />
             })()
           }
         </Paper>
@@ -110,8 +110,8 @@ class LogsView extends Component {
   }
 }
 
-LogsView.propTypes = {
+EventLiveView.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(LogsView)
+export default withStyles(styles)(EventLiveView)
