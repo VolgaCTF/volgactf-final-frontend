@@ -12,8 +12,8 @@ import EventListView from './EventListView.js'
 import TeamActions from '../actions/TeamActions.js'
 import TeamStore from '../store/TeamStore.js'
 
-import ServiceActions from '../actions/ServiceActions.js'
-import ServiceStore from '../store/ServiceStore.js'
+import ServiceAdminActions from '../actions/ServiceAdminActions.js'
+import ServiceAdminStore from '../store/ServiceAdminStore.js'
 
 const styles = theme => ({
   root: {
@@ -29,7 +29,7 @@ class EventLiveView extends Component {
     this.state = {
       logs: EventLiveStore.getState(),
       teams: TeamStore.getState(),
-      services: ServiceStore.getState()
+      services: ServiceAdminStore.getState()
     }
 
     this.onUpdateTeams = this.onUpdateTeams.bind(this)
@@ -39,16 +39,16 @@ class EventLiveView extends Component {
 
   componentDidMount () {
     TeamStore.listen(this.onUpdateTeams)
-    ServiceStore.listen(this.onUpdateServices)
+    ServiceAdminStore.listen(this.onUpdateServices)
     EventLiveStore.listen(this.onUpdateLogs)
 
     TeamActions.fetch()
-    ServiceActions.fetch()
+    ServiceAdminActions.fetch()
   }
 
   componentWillUnmount () {
     TeamStore.unlisten(this.onUpdateTeams)
-    ServiceStore.unlisten(this.onUpdateServices)
+    ServiceAdminStore.unlisten(this.onUpdateServices)
     EventLiveStore.unlisten(this.onUpdateLogs)
   }
 

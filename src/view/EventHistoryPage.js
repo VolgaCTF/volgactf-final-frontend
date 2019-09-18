@@ -12,8 +12,8 @@ import EventHistoryStore from '../store/EventHistoryStore.js'
 import TeamActions from '../actions/TeamActions.js'
 import TeamStore from '../store/TeamStore.js'
 
-import ServiceActions from '../actions/ServiceActions.js'
-import ServiceStore from '../store/ServiceStore.js'
+import ServiceAdminActions from '../actions/ServiceAdminActions.js'
+import ServiceAdminStore from '../store/ServiceAdminStore.js'
 
 import EventListView from './EventListView.js'
 import PaginationView from './PaginationView.js'
@@ -43,7 +43,7 @@ class EventHistoryPage extends Component {
       loading: false,
       eventHistory: EventHistoryStore.getState(),
       teams: TeamStore.getState(),
-      services: ServiceStore.getState()
+      services: ServiceAdminStore.getState()
     }
 
     this.onUpdateTeams = this.onUpdateTeams.bind(this)
@@ -55,11 +55,11 @@ class EventHistoryPage extends Component {
 
   componentDidMount () {
     TeamStore.listen(this.onUpdateTeams)
-    ServiceStore.listen(this.onUpdateServices)
+    ServiceAdminStore.listen(this.onUpdateServices)
     EventHistoryStore.listen(this.onUpdateEventHistory)
 
     TeamActions.fetch()
-    ServiceActions.fetch()
+    ServiceAdminActions.fetch()
 
     const timestamp = parseInt(this.props.queryParams.timestamp, 10)
     const page = parseInt(this.props.queryParams.page, 10)
@@ -70,7 +70,7 @@ class EventHistoryPage extends Component {
 
   componentWillUnmount () {
     TeamStore.unlisten(this.onUpdateTeams)
-    ServiceStore.unlisten(this.onUpdateServices)
+    ServiceAdminStore.unlisten(this.onUpdateServices)
     EventHistoryStore.unlisten(this.onUpdateEventHistory)
   }
 
