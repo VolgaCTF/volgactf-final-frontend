@@ -25,6 +25,22 @@ class EventLiveStore {
       this.cache.push(new EventModel(data))
     })
 
+    eventManager.on('team/service/push-state', (e) => {
+      this.cache.push(new EventModel({
+        id: parseInt(e.lastEventId, 10),
+        type: 31,
+        params: JSON.parse(e.data)
+      }))
+    })
+
+    eventManager.on('team/service/pull-state', (e) => {
+      this.cache.push(new EventModel({
+        id: parseInt(e.lastEventId, 10),
+        type: 32,
+        params: JSON.parse(e.data)
+      }))
+    })
+
     this.recordLimit = 250
     this.onRefresh = this.onRefresh.bind(this)
     this.refreshInterval = setInterval(this.onRefresh, 2000)
