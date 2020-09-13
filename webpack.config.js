@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 function getBrandingRootPath () {
   let rootPath = process.env.BRANDING_ROOT_PATH || 'branding-default'
@@ -72,5 +73,6 @@ module.exports = {
     hotOnly: true,
     historyApiFallback: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  // plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [new CompressionPlugin()]
 }
