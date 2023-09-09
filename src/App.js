@@ -169,7 +169,7 @@ class App extends Component {
         <footer className={classes.footer}>
           <Container maxWidth={false}>
             <Typography variant='body2'>
-              &copy; {(new Date()).getFullYear()} <Link href='https://volgactf.ru' target='_blank' rel='noopener' className={classes.link}>VolgaCTF</Link>. Devised in Samara, Russia.
+              &copy; 2011 &ndash; {(new Date()).getFullYear()} <Link href='https://volgactf.ru/en/' target='_blank' rel='noopener' className={classes.link}>VolgaCTF</Link>. Made in Samara, Russia.
             </Typography>
             <Typography variant='body2'>
               Find this project on <Link href='https://github.com/VolgaCTF/volgactf-final' target='_blank' rel='noopener' className={classes.link}>GitHub</Link>
