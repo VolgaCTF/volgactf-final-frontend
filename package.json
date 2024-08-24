@@ -25,7 +25,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-query-params": "^1.0.3",
-    "twemoji": "^12.1.2",
+    "twemoji": "^14.0.2",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
