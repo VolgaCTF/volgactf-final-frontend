@@ -6,7 +6,6 @@ import { Route, Switch } from 'react-router-dom'
 
 import { withStyles } from '@material-ui/styles'
 import { AppBar, Toolbar, Typography, Link, Tabs, Tab, Container } from '@material-ui/core'
-import { grey } from '@material-ui/core/colors'
 
 import IndexView from './view/IndexView.js'
 import NotificationListPage from './view/NotificationListPage.js'
@@ -21,6 +20,7 @@ import EventLiveView from './view/EventLiveView.js'
 import EventHistoryPage from './view/EventHistoryPage.js'
 
 import customLogo from 'Branding/logo.js'
+import customFooter from 'Branding/footer.js'
 
 const styles = theme => ({
   root: {
@@ -37,20 +37,11 @@ const styles = theme => ({
       maxHeight: '1em'
     }
   },
-  footer: {
-    textAlign: 'center',
-    padding: theme.spacing(2),
-    marginTop: 'auto',
-    color: grey['300'],
-    backgroundColor: grey['800']
-  },
+  footer: customFooter.buildFooterStyle(theme),
   title: {
     flexGrow: 1
   },
-  link: {
-    color: grey['200'],
-    fontWeight: 500
-  },
+  link: customFooter.linkStyle,
   headerLogo: customLogo.headerStyle
 })
 

@@ -17,8 +17,8 @@ WORKDIR /app
 COPY VERSION package*.json webpack.config.js .babelrc entrypoint.sh .
 COPY src ./src
 COPY public ./public
-COPY branding-default ./branding-default
-ENV BRANDING_ROOT_PATH=/app/branding-default
+COPY branding-2024 ./branding-2024
+ENV BRANDING_ROOT_PATH=/app/branding-2024
 ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm ci && npm run build && rm -rf ./node_modules ./src ./branding-*
 RUN addgroup volgactf && adduser --disabled-password --gecos "" --ingroup volgactf --no-create-home volgactf && chown -R volgactf:volgactf .
