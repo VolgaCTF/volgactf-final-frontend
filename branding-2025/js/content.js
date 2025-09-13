@@ -1,6 +1,8 @@
 const description = `
 :ru: Добро пожаловать!
 
+:belarus: Сардэчна запрашаем!
+
 :mongolia: Тавтай морилно уу!
 
 [VolgaCTF Final 101](https://101.volgactf.ru)
