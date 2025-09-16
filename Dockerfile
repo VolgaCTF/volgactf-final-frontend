@@ -1,6 +1,8 @@
 FROM node:18.8-alpine
 LABEL maintainer="VolgaCTF"
 
+ARG UID=1337
+ARG GID=1337
 ARG BUILD_DATE
 ARG BUILD_VERSION
 ARG VCS_REF
@@ -21,6 +23,6 @@ COPY branding-2025 ./branding-2025
 ENV BRANDING_ROOT_PATH=/app/branding-2025
 ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm ci && npm run build && rm -rf ./node_modules ./src ./branding-*
-RUN addgroup volgactf && adduser --disabled-password --gecos "" --ingroup volgactf --no-create-home volgactf && chown -R volgactf:volgactf .
+RUN addgroup --gid ${GID} volgactf && adduser --uid ${UID} --disabled-password --gecos "" --ingroup volgactf --no-create-home volgactf && chown -R volgactf:volgactf .
 USER volgactf
 ENTRYPOINT ["/bin/sh", "entrypoint.sh"]
